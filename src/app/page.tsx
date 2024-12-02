@@ -1,101 +1,148 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
+
+import { useState, useEffect } from "react";
+
+import eveImg from "../../public/eve.png";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+export default function DiasSemEx() {
+  const [dias, setDias] = useState(0);
+  const [contadorAnimado, setContadorAnimado] = useState(0);
+  const [emoji, setEmoji] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const emojis = {
+    0: "😭",
+    1: "😡",
+    2: "😐",
+    3: "😠",
+    15: "😜",
+    30: "😝",
+    45: "👍",
+    60: "😍",
+    90: "🤩",
+    120: "🥵",
+    180: "🐦‍🔥",
+  };
+
+  useEffect(() => {
+    const dataInicial = new Date("2024-11-24"); // Substitua pela data real
+    const hoje = new Date();
+    const diferenca = hoje.getTime() - dataInicial.getTime();
+    const diasPassados = Math.floor(diferenca / (1000 * 3600 * 24));
+
+    // Animação de contagem crescente
+    let inicio = 0;
+    const duracao = 1000; // 2 segundos de duração da animação
+    const incremento = 50; // Atualiza a cada 50ms
+
+    setDias(diasPassados);
+
+    if (diasPassados === 0) setEmoji(emojis[0]);
+    else if (diasPassados === 1) setEmoji(emojis[1]);
+    else if (diasPassados === 2) setEmoji(emojis[2]);
+    else if (diasPassados === 3) setEmoji(emojis[2]);
+    else if (diasPassados > 3 && diasPassados <= 15) setEmoji(emojis[3]);
+    else if (diasPassados > 15 && diasPassados <= 30) setEmoji(emojis[15]);
+    else if (diasPassados > 30 && diasPassados <= 45) setEmoji(emojis[30]);
+    else if (diasPassados > 45 && diasPassados <= 60) setEmoji(emojis[45]);
+    else if (diasPassados > 60 && diasPassados <= 90) setEmoji(emojis[60]);
+    else if (diasPassados > 90 && diasPassados <= 120) setEmoji(emojis[90]);
+    else if (diasPassados > 120 && diasPassados <= 180) setEmoji(emojis[120]);
+    else if (diasPassados > 180) setEmoji(emojis[180]);
+
+    const timer = setInterval(() => {
+      inicio += incremento;
+      setContadorAnimado(
+        Math.min(Math.floor(diasPassados * (inicio / duracao)), diasPassados)
+      );
+
+      if (inicio >= duracao) {
+        clearInterval(timer);
+      }
+    }, incremento);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen flex flex-col px-6 items-center justify-center bg-gradient-to-r py-10 from-purple-400 via-pink-500 to-red-500">
+      <div className="flex gap-4 items-center mb-8">
+        <Image
+          src={eveImg}
+          alt="Eve"
+          width={64}
+          height={64}
+          className="rounded-full shrink-0 h-full"
+        />
+        <h1 className="text-3xl font-bold text-white ">
+          Dias que a Evellyn está sem falar com o ex
+        </h1>
+      </div>
+      <div className="text-9xl font-bold text-white mb-8 animate-pulse">
+        {contadorAnimado}
+      </div>
+      <p className="text-2xl text-white text-center max-w-md">
+        <span className="text-4xl">{emoji}</span> Bora Evellyn, porra!
+      </p>
+      <div>
+        <h3 className="text-xl font-semibold text-white mb-4 text-center mt-10">
+          Metas
+        </h3>
+        <ol className="text-white [&_li]:px-4 [&_li]:py-2 [&_li]:bg-white [&_li]:rounded-md [&_li]:mb-2 [&_li]:text-gray-800 w-[250px] max-w-full flex flex-col [&_li]:w-full [&_li]:pb-3 [&_li]:flex [&_li]:gap-2 [&_li]:relative [&_span]:text-sm [&_span]:flex [&_span]:items-center [&_span]:justify-center [&_span]:bg-purple-400  [&_span]:px-2 [&_span]:rounded-md [&_span]:text-white">
+          <li>
+            🔒{dias} / 30 dias <span>{((dias / 30) * 100).toFixed(0)}%</span>
+            <div
+              className="absolute bottom-0 left-0 h-2 bg-gradient-to-r bg-purple-400 rounded-sm from-green-300  to-green-500"
+              style={{
+                width: `${((dias / 30) * 100).toFixed(0)}%`,
+              }}
+            ></div>
+          </li>
+          <li>
+            🔒{dias > 30 && <>{dias} /</>} 60 dias{" "}
+            {dias > 30 && <span>{((dias / 60) * 100).toFixed(0)}%</span>}
+            <div
+              className="w-1 absolute bottom-0 left-0 h-2 bg-gradient-to-r bg-purple-400 rounded-sm from-green-300  to-green-500"
+              // style={{
+              //   width: `${((dias / 60) * 100).toFixed(0)}%`,
+              // }}
+            ></div>
+          </li>
+          <li>
+            🔒{dias > 60 && <>{dias} /</>} 90 dias{" "}
+            {dias > 60 && <span>{((dias / 90) * 100).toFixed(0)}%</span>}
+            <div
+              className="w-1 absolute bottom-0 left-0 h-2 bg-gradient-to-r bg-purple-400 rounded-sm from-green-300  to-green-500"
+              // style={{
+              //   width: `${((dias / 90) * 100).toFixed(0)}%`,
+              // }}
+            ></div>
+          </li>
+          <li>
+            🔒{dias > 90 && <>{dias} /</>} 120 dias{" "}
+            {dias > 90 && <span>{((dias / 120) * 100).toFixed(0)}%</span>}
+            <div
+              className="w-1 absolute bottom-0 left-0 h-2 bg-gradient-to-r bg-purple-400 rounded-sm from-green-300  to-green-500"
+              // style={{
+              //   width: `${((dias / 120) * 100).toFixed(0)}%`,
+              // }}
+            ></div>
+          </li>
+          <li>
+            🔒{dias > 120 && <>{dias} /</>} 180 dias{" "}
+            {dias > 120 && <span>{((dias / 180) * 100).toFixed(0)}%</span>}
+            <div
+              className="w-1 absolute bottom-0 left-0 h-2 bg-gradient-to-r bg-purple-400 rounded-sm from-green-300  to-green-500"
+              // style={{
+              //   width: `${((dias / 180) * 100).toFixed(0)}%`,
+              // }}
+            ></div>
+          </li>
+        </ol>
+      </div>
     </div>
   );
 }
